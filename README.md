@@ -23,6 +23,13 @@ Learn backend development with javascript. Learn swagger, express, authenticatio
 4. Go to compass and paste the `connection string` in the URI
 5. Change the `<password>` with your actual password and click on `connect`
 
+## Middlewars
+
+- `app.use(express.json())` = This line tells that the data in in JSON format
+- `app.use(fileUpload())` = If file upload comes up, it adds file object in request object. Like, `req.file`
+
+>Demo: Click [here](./mydocs/app.js) to go to the code
+
 ## Swagger
 
 - Swagger is use to write documentation for APIs
@@ -32,4 +39,30 @@ Learn backend development with javascript. Learn swagger, express, authenticatio
 
 Nodemon works on specific files like `.js`, `.jsx`, etc. but if we want to update the list of extensions, we first need to create a file named `nodemon.json` and then add `{ "ext": ".js, .json, .yaml, .jsx" }` in the file
 
->Demo: [Nodemon.json](/socialApp/nodemon.json)
+>Demo: Click [here](/socialApp/nodemon.json) to go to the code
+
+## Enum
+
+We can pass enum values in 2 ways:
+
+```yaml
+1. enum:
+ - enum1 
+ - enum2 
+ - enum3
+ ... 
+```
+
+```yaml
+2. enum: [enum1, enum2, enum3, ...]
+```
+
+## `express-fileupload` Package
+
+This package is use to send and get files(like images) in request and response
+
+- `file.mv(path, errorHandler)` = This method is use to move file to the desired path.
+
+## Some extra points
+
+- `multipart/form-data` = A data type for media files
