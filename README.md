@@ -23,9 +23,9 @@ Learn backend development with javascript. Learn swagger, express, authenticatio
 4. Go to compass and paste the `connection string` in the URI
 5. Change the `<password>` with your actual password and click on `connect`
 
-## Middlewars
+## Middlewares
 
-- `app.use(express.json())` = This line tells that the data in in JSON format
+- `app.use(express.json())` = It parses incoming JSON data from HTTP requests
 - `app.use(fileUpload())` = If file upload comes up, it adds file object in request object. Like, `req.file`
 
 >Demo: Click [here](./mydocs/app.js) to go to the code
@@ -57,12 +57,34 @@ We can pass enum values in 2 ways:
 2. enum: [enum1, enum2, enum3, ...]
 ```
 
+>Demo: Click [here](/mydocs/swagger.yaml) to go to the documentation
+
 ## `express-fileupload` Package
 
 This package is use to send and get files(like images) in request and response
 
 - `file.mv(path, errorHandler)` = This method is use to move file to the desired path.
 
+## ORM vs ODM
+
+`ORM (Object Relational Mapping)` is a method that links an application to a relational database (SQL), while `ODM (Object Document Mapper)` is used in non relational database (NoSQL). \
+We use `Mongoose` for ODM
+
+## Mongoose
+
+- It allows to define pre and post hooks, enabling pre-defined logic to be executed.
+- `Schema` can be considered as a table of SQL database
+- `model` is a wrapper of the schema.
+- `process.exit(0 / 1)`: This function accepts single parameter (0 or 1).
+  - 0 means end the process without any kind of failure.
+  - 1 means end the process with some failure.
+
 ## Some extra points
 
 - `multipart/form-data` = A data type for media files
+- If import is not holded in a variable then it means to execute or run that module. i.e,
+
+```javascript
+const express = require('express'); // This line is holding a module in a variable
+require('file').function(); // This line is running `function` from `file`
+```
