@@ -46,6 +46,32 @@ Learn backend development with javascript. Learn swagger, express, authenticatio
 - Swagger is use to write documentation for APIs
 - Important [link](https://swagger.io/docs/specification/basic-structure/) to the documentation
 
+### Installation
+
+- Run `npm install swagger-ui-express yaml`
+- Import:
+
+```javascript
+const swaggerUi = require('swagger-ui-express');
+const fs = require("fs");
+const YAML = require('yaml');
+```
+
+- Make instance:
+
+```javascript
+const file = fs.readFileSync('./swagger.yaml', 'utf8')
+const swaggerDocument = YAML.parse(file);
+```
+
+- Use middleware:
+
+```javascript
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+```
+
+- Now create a file named `swagger.yaml` (that you passed in `fs.readFileSync`)
+
 ## Nodemon
 
 Nodemon works on specific files like `.js`, `.jsx`, etc. but if we want to update the list of extensions, we first need to create a file named `nodemon.json` and then add `{ "ext": ".js, .json, .yaml, .jsx" }` in the file
@@ -117,6 +143,13 @@ We use `Mongoose` for ODM
   - 0 means end the process without any kind of failure.
   - 1 means end the process with some failure.
 - Sometimes database operations take time so making them asynchronous is a better approach.
+- `select: boolean (default: true)`: Whenever you fetch a document from the database, the field with this key will not be included in the result if it is `false` unless you explicitly include it. You can fetch it as `Model.find({}).select('+field')`
+- `Schema.pre('event',function(next){...})`: It runs before specific events. Events can be:
+  - save: Runs before a document is saved.
+  - validate: Runs before a document is validated.
+  - remove: Runs before a document is removed.
+  - find: Runs before a find query is executed.
+  - update: Runs before an update query is executed.
 
 ## Token in postman
 
@@ -137,6 +170,45 @@ We can also send the token through Authorization section:
 'View engine' allows us to render web pages using template files and 'ejs' is the type of view engine. For view engines, the structure is that we need to make a folder named `views` and inside that folder there are HTML files with `.ejs` extension that needed to be rendered. In the main file there's a need of middleware,\
 `app.set("view engine", "ejs")`, where 'ejs' is the type of view engine
 
+## Structure of a backend folder
+
+### configs
+
+This folder contains the configuration of the server, like connecting to the database.
+
+### controllers
+
+This folder contains the logic and functionality of all the models, pages and controllers.
+
+### middlewares
+
+This folder contains the middlewares.
+
+### models
+
+This folder contains the models of database, in which the models are defined.
+
+### routes
+
+This folder contains the routes for all the controllers and models. It imports the controllers and put it in the specific route and export it to `app.js` or `index.js`.\
+These routes works as a middleware in the main file, or we can say that we have to use these in `app.use('/api/v1', routeMethod)`
+
+```javascript
+const express = require('express')
+const { a,b,c,... } = require('../controllers/home')
+
+const router = express.Router()
+
+router.route('/').get(a)
+router.route('/b').get(b)
+router.route('/c').get(c)
+// More routes...
+
+module.exports = router
+```
+
+### utils
+
 ## Some extra points
 
 - `multipart/form-data` = A data type for media files
@@ -148,4 +220,5 @@ require('file').function(); // This line is running `function` from `file`
 ```
 
 - `enctype="multipart/form-data"` = This is added in the (HTML / frontend) as an attribute of the  form for handling images and files.
-- `bcryptjs.compare(Entered password, password from database)` = This method compares the password against the password stored in the database.
+- We can put the functionality in the promise to manage multiple asynchronous operations, associating handlers with success or failure. Like this [promise](./tShirtStore/middlewares/) and [inner features](./tShirtStore/controllers/home.js).\
+We can also use the `trycatch` for that just as it is done in [authSystem](./authSystem/app.js)

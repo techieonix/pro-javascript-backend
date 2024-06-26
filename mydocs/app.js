@@ -3,7 +3,6 @@ const swaggerUi = require('swagger-ui-express');
 const fs = require("fs");
 const YAML = require('yaml');
 const fileUpload = require('express-fileupload');
-const pathModule = require('path');
 
 const app = express();
 const file = fs.readFileSync('./swagger.yaml', 'utf8')
