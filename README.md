@@ -340,3 +340,4 @@ require('file').function(); // This line is running `function` from `file`
 - `enctype="multipart/form-data"` = This is added in the (HTML / frontend) as an attribute of the  form for handling images and files.
 - We can put the functionality in the promise to manage multiple asynchronous operations, associating handlers with success or failure. Like this [promise](./tShirtStore/middlewares/) and [inner features](./tShirtStore/controllers/home.js).\
 We can also use the `trycatch` for that just as it is done in [authSystem](./authSystem/app.js)
+- You must provide `cookie-session` configuration at the top of every middleware. [Link](./socialLogin/app.js)
